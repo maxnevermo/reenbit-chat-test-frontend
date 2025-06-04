@@ -2,7 +2,57 @@
   "hash": "12d6491f",
   "configHash": "0b4d3868",
   "lockfileHash": "f3642b2a",
-  "browserHash": "f89fb3da",
-  "optimized": {},
-  "chunks": {}
+  "browserHash": "9b9aa1a0",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "d86c337f",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "76d8ed70",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.mjs",
+      "file": "react-router-dom.js",
+      "fileHash": "ca50e44e",
+      "needsInterop": false
+    },
+    "react-router": {
+      "src": "../../node_modules/react-router/dist/development/index.mjs",
+      "file": "react-router.js",
+      "fileHash": "ebdba8f9",
+      "needsInterop": false
+    },
+    "react-svg": {
+      "src": "../../node_modules/react-svg/dist/react-svg.esm.js",
+      "file": "react-svg.js",
+      "fileHash": "2a709b50",
+      "needsInterop": false
+    },
+    "socket.io-client": {
+      "src": "../../node_modules/socket.io-client/build/esm/index.js",
+      "file": "socket__io-client.js",
+      "fileHash": "a0e8f3f9",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-5HNGYYSW": {
+      "file": "chunk-5HNGYYSW.js"
+    },
+    "chunk-EGZ772PC": {
+      "file": "chunk-EGZ772PC.js"
+    },
+    "chunk-TVFQMRVC": {
+      "file": "chunk-TVFQMRVC.js"
+    },
+    "chunk-G3PMV62Z": {
+      "file": "chunk-G3PMV62Z.js"
+    }
+  }
 }
