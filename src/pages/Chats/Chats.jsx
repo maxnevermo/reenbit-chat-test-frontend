@@ -1,61 +1,18 @@
 import { useEffect, useState, useRef } from "react";
 import MessagesPanel from "../../components/MessagesPanel/MessagesPanel";
 import ChatList from "../../components/ChatList/ChatList";
-
 import styles from "./Chats.module.css";
 import User from "../../components/User/User";
 import ChatForm from "../../components/ChatForm/ChatForm";
 import ToastNotificationsList from "../../components/ToastNotificationsList/ToastNotificationsList";
-
 import { io } from "socket.io-client";
-
-const fakeNotifications = [
-  {
-    _id: "1",
-    sender: {
-      _id: "user1",
-      firstName: "Олег",
-      lastName: "Іванов",
-      avatar: "https://randomuser.me/api/portraits/men/1.jpg",
-    },
-    text: "Привіт! Як справи?",
-    status: "sent",
-    createdAt: new Date().toISOString(),
-  },
-  {
-    _id: "2",
-    sender: {
-      _id: "user2",
-      firstName: "Анна",
-      lastName: "Петренко",
-      avatar: "https://randomuser.me/api/portraits/women/2.jpg",
-    },
-    text: "Нова зустріч завтра о 10:00",
-    status: "waiting",
-    createdAt: new Date().toISOString(),
-  },
-  {
-    _id: "3",
-    sender: {
-      _id: "user3",
-      firstName: "Ігор",
-      lastName: "Сидоренко",
-      avatar: "https://randomuser.me/api/portraits/men/3.jpg",
-    },
-    text: "Файл надіслано.",
-    status: "seen",
-    createdAt: new Date().toISOString(),
-  },
-];
 
 export default function ChatsPage() {
   const [chats, setChats] = useState(null);
   const [selectedChat, setSelectedChat] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
-
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingChat, setEditingChat] = useState(null);
-
   const [notifications, setNotifications] = useState([]);
 
   const socket = useRef(null);
@@ -97,7 +54,6 @@ export default function ChatsPage() {
       const isCurrentChat = selectedChat?._id === message.chatId;
 
       handleNewMessage(message.chatId, message);
-      console.log(message);
       if (!isCurrentChat) {
         setNotifications((prev) => [...prev, message]);
       }
@@ -107,15 +63,6 @@ export default function ChatsPage() {
       socket.current.off("receiveMessage");
     };
   }, [selectedChat, currentUser]);
-
-  useEffect(() => {
-    console.log("заповнення");
-    if (notifications.length === 0) {
-      setNotifications(fakeNotifications);
-    }
-  }, [notifications]);
-
-  console.log("привіт");
 
   useEffect(() => {
     const fetchChats = async () => {
@@ -169,7 +116,6 @@ export default function ChatsPage() {
 
   const handleChatDelete = (id) => {
     setChats((prevChats) => prevChats.filter((chat) => chat._id !== id));
-
     if (selectedChat?._id === id) {
       setSelectedChat(null);
     }
@@ -204,7 +150,6 @@ export default function ChatsPage() {
   };
 
   const handleNewMessage = (chatId, message) => {
-    console.log("handleNewMessage");
     setChats((prevChats) =>
       prevChats.map((chat) =>
         chat._id === chatId
@@ -236,6 +181,7 @@ export default function ChatsPage() {
           selectedChatId={selectedChat?._id}
         />
       </div>
+
       {selectedChat && (
         <MessagesPanel
           key={selectedChat._id}
