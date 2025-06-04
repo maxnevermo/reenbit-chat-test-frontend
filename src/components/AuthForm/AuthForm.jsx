@@ -77,26 +77,26 @@ export default function AuthForm() {
 
   return (
     <div className={styles["auth-container"]}>
-      <h1>{isRegistering ? "Реєстрація" : "Логін"}</h1>
+      <h1>{isRegistering ? "Sign up" : "Login"}</h1>
       <form className={styles["auth-form"]} onSubmit={handleSubmit}>
         {isRegistering && (
           <>
             <FormInput
               form={form}
               handleChange={handleChange}
-              label="Ім'я"
+              label="First Name"
               name="firstName"
               type="text"
-              placeholder="Петро"
+              placeholder="John"
               required
             />
             <FormInput
               form={form}
               handleChange={handleChange}
-              label="Прізвище"
+              label="Last Nam"
               name="lastName"
               type="text"
-              placeholder="Іванов"
+              placeholder="Doe"
               required
             />
           </>
@@ -120,22 +120,24 @@ export default function AuthForm() {
           required
         />
         <button className={styles["submit-button"]} type="submit">
-          {isRegistering ? "Зареєструватися" : "Увійти"}
+          {isRegistering ? "Register" : "Sign in"}
         </button>
       </form>
       <p>
-        {isRegistering ? "Вже є акаунт?" : "Немає акаунта?"}{" "}
+        {isRegistering
+          ? "Already have an account?"
+          : "Don't have an account yet?"}{" "}
         <button
           className={styles["accent-element"]}
           type="button"
           onClick={toggleMode}
         >
-          {isRegistering ? "Увійти" : "Зареєструватися"}
+          {isRegistering ? "Sign in" : "Register"}
         </button>
       </p>
 
       <div className={styles.divider}>
-        <span>або</span>
+        <span>or</span>
       </div>
 
       <div className={styles["social-login-buttons"]}>
