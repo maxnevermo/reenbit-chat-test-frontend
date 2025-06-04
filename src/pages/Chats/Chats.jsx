@@ -55,6 +55,7 @@ export default function ChatsPage() {
 
       handleNewMessage(message.chatId, message);
       if (!isCurrentChat) {
+        console.log(message);
         setNotifications((prev) => [...prev, message]);
       }
     });
