@@ -11,6 +11,7 @@ export default function MessagesPanel({
   currentUser,
   onChatDelete,
   onChatEdit,
+  onNewMessage,
   chat,
 }) {
   const [message, setMessage] = useState("");
@@ -53,8 +54,11 @@ export default function MessagesPanel({
     socket.emit("joinChat", chat._id);
 
     const handleIncomingMessage = (newMessage) => {
+      console.log("🔥 receiveMessage SOCKET EVENT:", newMessage);
       if (newMessage.chatId === chat._id) {
         setMessages((prev) => [...prev, newMessage]);
+        console.log("handle new message with sockets");
+        onNewMessage?.(chat._id, newMessage);
       }
     };
 
@@ -123,6 +127,21 @@ export default function MessagesPanel({
 
   const handleSendMessage = async () => {
     if (!message.trim()) return;
+
+    const tempMessage = {
+      _id: Date.now().toString(),
+      chatId: chat._id,
+      sender: currentUser,
+      text: message,
+      createdAt: new Date().toISOString(),
+      status: "sent",
+    };
+
+    console.log(tempMessage);
+    console.log(chat._id);
+    onNewMessage(chat._id, tempMessage);
+
+    setMessages((prev) => [...prev, tempMessage]);
 
     if (editMode && editingMessageId) {
       const res = await fetch(
@@ -198,7 +217,6 @@ export default function MessagesPanel({
         isSearchMode={isSearchMode}
       />
 
-      {/* Панель пошуку */}
       {isSearchMode && (
         <div className={styles["search-panel"]}>
           <div className={styles["search-input-container"]}>

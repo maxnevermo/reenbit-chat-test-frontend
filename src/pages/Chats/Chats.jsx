@@ -5,6 +5,46 @@ import ChatList from "../../components/ChatList/ChatList";
 import styles from "./Chats.module.css";
 import User from "../../components/User/User";
 import ChatForm from "../../components/ChatForm/ChatForm";
+import ToastNotificationsList from "../../components/ToastNotificationsList/ToastNotificationsList";
+
+const fakeNotifications = [
+  {
+    _id: "1",
+    sender: {
+      _id: "user1",
+      firstName: "Олег",
+      lastName: "Іванов",
+      avatar: "https://randomuser.me/api/portraits/men/1.jpg",
+    },
+    text: "Привіт! Як справи?",
+    status: "sent",
+    createdAt: new Date().toISOString(),
+  },
+  {
+    _id: "2",
+    sender: {
+      _id: "user2",
+      firstName: "Анна",
+      lastName: "Петренко",
+      avatar: "https://randomuser.me/api/portraits/women/2.jpg",
+    },
+    text: "Нова зустріч завтра о 10:00",
+    status: "waiting",
+    createdAt: new Date().toISOString(),
+  },
+  {
+    _id: "3",
+    sender: {
+      _id: "user3",
+      firstName: "Ігор",
+      lastName: "Сидоренко",
+      avatar: "https://randomuser.me/api/portraits/men/3.jpg",
+    },
+    text: "Файл надіслано.",
+    status: "seen",
+    createdAt: new Date().toISOString(),
+  },
+];
 
 export default function ChatsPage() {
   const [chats, setChats] = useState(null);
@@ -13,6 +53,8 @@ export default function ChatsPage() {
 
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingChat, setEditingChat] = useState(null);
+
+  const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -33,6 +75,15 @@ export default function ChatsPage() {
 
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    console.log("заповнення");
+    if (notifications.length === 0) {
+      setNotifications(fakeNotifications);
+    }
+  }, [notifications]);
+
+  console.log("привіт");
 
   useEffect(() => {
     const fetchChats = async () => {
@@ -120,6 +171,25 @@ export default function ChatsPage() {
     setShowEditModal(false);
   };
 
+  const handleNewMessage = (chatId, message) => {
+    console.log("handleNewMessage");
+    setChats((prevChats) =>
+      prevChats.map((chat) =>
+        chat._id === chatId
+          ? {
+              ...chat,
+              lastMessage: {
+                sender: message.sender,
+                text: message.text,
+                createdAt: message.createdAt,
+                status: message.status || "sent",
+              },
+            }
+          : chat
+      )
+    );
+  };
+
   if (!currentUser) return <div>Завантаження...</div>;
 
   return (
@@ -136,11 +206,12 @@ export default function ChatsPage() {
       </div>
       {selectedChat && (
         <MessagesPanel
-          key={selectedChat._id} // Важливо: key для перерендеру компонента
+          key={selectedChat._id}
           currentUser={currentUser}
           onChatDelete={handleChatDelete}
           onChatEdit={openEditModal}
           chat={selectedChat}
+          onNewMessage={handleNewMessage}
         />
       )}
 
@@ -151,6 +222,10 @@ export default function ChatsPage() {
           onSaveChat={handleChatEdit}
           onCloseChat={closeEditModal}
         />
+      )}
+
+      {notifications.length > 0 && (
+        <ToastNotificationsList notifications={fakeNotifications} />
       )}
     </div>
   );

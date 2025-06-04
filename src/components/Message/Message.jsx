@@ -3,7 +3,9 @@ import EditIcon from "../../assets/icons/edit.svg";
 
 import styles from "./Message.module.css";
 
-const formatMessageDate = (dateString) => {
+const formatMessageDate = (
+  dateString = new Date().toISOString.split("T")[0]
+) => {
   const date = new Date(dateString);
   const now = new Date();
 

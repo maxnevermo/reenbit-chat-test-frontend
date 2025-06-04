@@ -41,6 +41,4 @@ const MessageList = forwardRef(
   }
 );
 
-MessageList.displayName = "MessageList";
-
 export default MessageList;

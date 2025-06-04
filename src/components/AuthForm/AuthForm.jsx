@@ -93,7 +93,7 @@ export default function AuthForm() {
             <FormInput
               form={form}
               handleChange={handleChange}
-              label="Last Nam"
+              label="Last Name"
               name="lastName"
               type="text"
               placeholder="Doe"
