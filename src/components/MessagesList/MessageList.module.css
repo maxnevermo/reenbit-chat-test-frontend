@@ -1,0 +1,10 @@
+.messages-list {
+    display: flex;
+    flex-direction: column;
+    height: 650px;
+    padding: 20px;
+    gap: 15px;
+    overflow-y: auto;
+    
+    list-style: none;
+}

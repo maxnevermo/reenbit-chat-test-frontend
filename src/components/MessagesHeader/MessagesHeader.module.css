@@ -1,0 +1,26 @@
+.messages-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #a5a5a5;
+}
+
+.chat-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.companion-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    font-size: 20px;
+}
+
+.companion-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
