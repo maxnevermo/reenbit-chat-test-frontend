@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import MessagesPanel from "../../components/MessagesPanel/MessagesPanel";
 import ChatList from "../../components/ChatList/ChatList";
 
@@ -6,6 +6,8 @@ import styles from "./Chats.module.css";
 import User from "../../components/User/User";
 import ChatForm from "../../components/ChatForm/ChatForm";
 import ToastNotificationsList from "../../components/ToastNotificationsList/ToastNotificationsList";
+
+import { io } from "socket.io-client";
 
 const fakeNotifications = [
   {
@@ -56,6 +58,8 @@ export default function ChatsPage() {
 
   const [notifications, setNotifications] = useState([]);
 
+  const socket = useRef(null);
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -75,6 +79,34 @@ export default function ChatsPage() {
 
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    socket.current = io(import.meta.env.VITE_API_URL, {
+      withCredentials: true,
+    });
+
+    return () => {
+      socket.current.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!socket.current || !currentUser) return;
+
+    socket.current.on("receiveMessage", (message) => {
+      const isCurrentChat = selectedChat?._id === message.chatId;
+
+      handleNewMessage(message.chatId, message);
+
+      if (!isCurrentChat) {
+        setNotifications((prev) => [...prev, message]);
+      }
+    });
+
+    return () => {
+      socket.current.off("receiveMessage");
+    };
+  }, [selectedChat, currentUser]);
 
   useEffect(() => {
     console.log("заповнення");
@@ -225,7 +257,17 @@ export default function ChatsPage() {
       )}
 
       {notifications.length > 0 && (
-        <ToastNotificationsList notifications={fakeNotifications} />
+        <ToastNotificationsList
+          notifications={notifications}
+          onRemoveNotification={(id) =>
+            setNotifications((prev) => prev.filter((n) => n._id !== id))
+          }
+          onToastClick={(message) => {
+            const chat = chats.find((c) => c._id === message.chatId);
+            if (chat) handleChatSelect(chat);
+          }}
+          autoRemoveDelay={5000}
+        />
       )}
     </div>
   );

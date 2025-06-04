@@ -17,9 +17,13 @@ export default function ToastNotification({
   };
 
   const handleClick = () => {
-    if (onToastClick) {
-      onToastClick(message);
-    }
+    setIsClosing(true);
+    setTimeout(() => {
+      if (onToastClick) {
+        onToastClick(message);
+      }
+      closeToast();
+    }, 300);
   };
 
   return (
