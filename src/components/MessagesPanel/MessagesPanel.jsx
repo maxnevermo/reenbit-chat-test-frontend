@@ -126,18 +126,6 @@ export default function MessagesPanel({
   const handleSendMessage = async () => {
     if (!message.trim()) return;
 
-    const tempMessage = {
-      _id: Date.now().toString(),
-      chatId: chat._id,
-      sender: currentUser,
-      text: message,
-      createdAt: new Date().toISOString(),
-      status: "sent",
-    };
-    onNewMessage(chat._id, tempMessage);
-
-    setMessages((prev) => [...prev, tempMessage]);
-
     if (editMode && editingMessageId) {
       const res = await fetch(
         `${import.meta.env.VITE_API_URL}/api/messages/${editingMessageId}`,
