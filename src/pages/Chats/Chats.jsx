@@ -97,7 +97,7 @@ export default function ChatsPage() {
       const isCurrentChat = selectedChat?._id === message.chatId;
 
       handleNewMessage(message.chatId, message);
-
+      console.log(message);
       if (!isCurrentChat) {
         setNotifications((prev) => [...prev, message]);
       }
