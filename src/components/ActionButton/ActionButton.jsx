@@ -7,6 +7,7 @@ import CloseIcon from "../../assets/icons/close.svg";
 import SendIcon from "../../assets/icons/send.svg";
 import SearchIcon from "../../assets/icons/search.svg";
 import CancelIcon from "../../assets/icons/cancel.svg";
+import SentIcon from "../../assets/icons/sent.svg";
 
 import styles from "./ActionButton.module.css";
 
@@ -26,10 +27,14 @@ const getIconByAction = (action) => {
       return <ReactSVG style={{ fill: "#000000" }} src={SearchIcon} />;
     case "cancel":
       return <ReactSVG style={{ fill: "#000000" }} src={CancelIcon} />;
+    case "sent":
+      return <ReactSVG style={{ fill: "#000000" }} src={SentIcon} />;
   }
 };
 
 export default function ActionButton({ icon, actionFn }) {
+  console.log(icon);
+
   return (
     <button
       type="button"
