@@ -263,9 +263,7 @@ export default function MessagesPanel({
           type="text"
           onChange={handleMessageChange}
           value={message}
-          placeholder={
-            editMode ? "Редагувати повідомлення..." : "Write a message..."
-          }
+          placeholder={editMode ? "Edit message" : "Write a message..."}
         />
         <ActionButton
           actionFn={handleSendMessage}

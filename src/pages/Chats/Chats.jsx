@@ -16,6 +16,7 @@ export default function ChatsPage() {
   const [notifications, setNotifications] = useState([]);
 
   const socket = useRef(null);
+  const joinedChats = useRef(new Set());
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -56,7 +57,7 @@ export default function ChatsPage() {
       console.log(message);
 
       handleNewMessage(message.chatId, message);
-      if (!isCurrentChat) {
+      if (!isCurrentChat && !notifications.some((n) => n._id === message._id)) {
         setNotifications((prev) => [...prev, message]);
       }
     });
@@ -64,7 +65,7 @@ export default function ChatsPage() {
     return () => {
       socket.current.off("receiveMessage");
     };
-  }, [selectedChat, currentUser]);
+  }, [selectedChat, currentUser, notifications]);
 
   useEffect(() => {
     const fetchChats = async () => {
@@ -87,7 +88,22 @@ export default function ChatsPage() {
     }
   }, [currentUser]);
 
+  useEffect(() => {
+    if (!socket.current || !chats || !currentUser) return;
+
+    chats.forEach((chat) => {
+      if (!joinedChats.current.has(chat._id)) {
+        socket.current.emit("joinChat", chat._id);
+        joinedChats.current.add(chat._id);
+      }
+    });
+  }, [chats, currentUser]);
+
   const handleChatSelect = async (chat) => {
+    if (socket.current) {
+      socket.current.emit("joinChat", chat._id);
+    }
+
     try {
       setSelectedChat(null);
 
