@@ -269,7 +269,7 @@ export default function MessagesPanel({
         />
         <ActionButton
           actionFn={handleSendMessage}
-          icon={editMode ? "check" : "send"}
+          icon={editMode ? "sent" : "send"}
         />
         {editMode && (
           <ActionButton
