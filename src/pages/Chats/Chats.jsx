@@ -53,9 +53,10 @@ export default function ChatsPage() {
     socket.current.on("receiveMessage", (message) => {
       const isCurrentChat = selectedChat?._id === message.chatId;
 
+      console.log(message);
+
       handleNewMessage(message.chatId, message);
       if (!isCurrentChat) {
-        console.log(message);
         setNotifications((prev) => [...prev, message]);
       }
     });
