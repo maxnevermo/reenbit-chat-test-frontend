@@ -1,0 +1,12 @@
+.chats-page {
+    padding: 30px;
+    display: flex;
+    gap: 40px;
+}
+
+.side-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-weight: 600;
+}

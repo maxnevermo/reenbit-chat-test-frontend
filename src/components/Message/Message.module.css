@@ -1,0 +1,48 @@
+.message {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 1;
+}
+
+.my-message {
+    flex-direction: row-reverse;
+    align-self: flex-end;
+}
+
+.chat-companion-avatar {
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+}
+
+.message-sent-time {
+    font-size: 14px;
+    color: #c7c7c7;
+}
+
+.message-container {
+    padding: 10px;
+    border-radius: 15px;
+    position: relative;
+
+    background-color: #464646;
+    color: #FFFFFF;
+}
+
+.my-message > .message-container {
+    background-color: #453bc7;
+}
+
+.edit-message-button {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 2;
+}
+
+.my-message:hover .edit-message-button {
+  opacity: 1;
+  pointer-events: auto;
+}
+
