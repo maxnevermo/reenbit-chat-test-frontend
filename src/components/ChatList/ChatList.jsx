@@ -23,8 +23,6 @@ export default function ChatList({
   };
 
   const handleChatSelect = (chat) => {
-    // Очищаємо пошук при виборі чату (опціонально)
-    // setSearchTerm("");
     onSelectChat(chat);
   };
 
@@ -52,7 +50,7 @@ export default function ChatList({
       </div>
 
       {chats === null ? (
-        <p>Завантаження чатів...</p>
+        <p>Chats loading...</p>
       ) : filteredChats?.length > 0 ? (
         <ul className={styles["chat-list"]}>
           {filteredChats.map((chat) => (
@@ -66,7 +64,7 @@ export default function ChatList({
           ))}
         </ul>
       ) : (
-        <p>{searchTerm ? "Чатів не знайдено" : "Немає чатів"}</p>
+        <p>{searchTerm ? "No chats found" : "No chats"}</p>
       )}
 
       {showModal && (

@@ -57,7 +57,6 @@ export default function ChatsPage() {
 
   const handleChatSelect = async (chat) => {
     try {
-      // Спочатку очищаємо вибраний чат для запобігання багам
       setSelectedChat(null);
 
       const res = await fetch(
@@ -71,7 +70,6 @@ export default function ChatsPage() {
       if (!res.ok)
         throw new Error(data.message || "Помилка при завантаженні повідомлень");
 
-      // Встановлюємо новий чат з повідомленнями
       setSelectedChat({
         ...chat,
         messagesHistory: data.messages || [],
@@ -99,7 +97,6 @@ export default function ChatsPage() {
       prev.map((chat) => (chat._id === updatedChat._id ? updatedChat : chat))
     );
 
-    // Оновлюємо вибраний чат, зберігаючи історію повідомлень
     if (selectedChat?._id === updatedChat._id) {
       setSelectedChat({
         ...updatedChat,

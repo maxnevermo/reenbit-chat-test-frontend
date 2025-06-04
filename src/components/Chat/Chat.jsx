@@ -43,7 +43,6 @@ const formatMessageDate = (dateString) => {
 };
 
 export default function Chat({ currentUser, chat, onSelectChat }) {
-  console.log(chat);
 
   const { avatar, firstName, lastName } = chat.members.find(
     (member) => member._id !== currentUser._id

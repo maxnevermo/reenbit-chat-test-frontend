@@ -30,7 +30,6 @@ const formatMessageDate = (dateString) => {
   return date.toLocaleDateString("uk-UA", dateOptions);
 };
 
-// Функція для підсвічування тексту
 const highlightText = (text, searchQuery) => {
   if (!searchQuery || !searchQuery.trim()) {
     return text;

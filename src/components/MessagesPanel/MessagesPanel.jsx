@@ -21,7 +21,6 @@ export default function MessagesPanel({
   const [editMode, setEditMode] = useState(false);
   const [editingMessageId, setEditingMessageId] = useState(null);
 
-  // Стани для пошуку
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchMode, setIsSearchMode] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
@@ -38,14 +37,12 @@ export default function MessagesPanel({
     setIsDeleting(false);
   };
 
-  // Оновлення повідомлень при зміні чату
   useEffect(() => {
     if (chat?.messagesHistory) {
       setMessages(chat.messagesHistory);
     }
   }, [chat?.messagesHistory]);
 
-  // Очищення пошуку при зміні чату
   useEffect(() => {
     clearSearch();
   }, [chat?._id]);
@@ -68,7 +65,6 @@ export default function MessagesPanel({
     };
   }, [chat?._id]);
 
-  // Функція пошуку
   const handleSearch = (query) => {
     setSearchQuery(query);
 
@@ -86,7 +82,6 @@ export default function MessagesPanel({
     setCurrentSearchIndex(results.length > 0 ? 0 : -1);
   };
 
-  // Навігація по результатах пошуку
   const navigateSearch = (direction) => {
     if (searchResults.length === 0) return;
 
@@ -105,7 +100,6 @@ export default function MessagesPanel({
 
     setCurrentSearchIndex(newIndex);
 
-    // Прокрутити до повідомлення
     const messageId = searchResults[newIndex]._id;
     const messageElement = document.getElementById(`message-${messageId}`);
     if (messageElement) {
@@ -116,7 +110,6 @@ export default function MessagesPanel({
     }
   };
 
-  // Очистити пошук
   const clearSearch = () => {
     setSearchQuery("");
     setSearchResults([]);
@@ -132,33 +125,28 @@ export default function MessagesPanel({
     if (!message.trim()) return;
 
     if (editMode && editingMessageId) {
-      try {
-        const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/messages/${editingMessageId}`,
-          {
-            method: "PUT",
-            credentials: "include",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text: message }),
-          }
-        );
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/messages/${editingMessageId}`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text: message }),
+        }
+      );
 
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.message);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message);
 
-        setMessages((prev) =>
-          prev.map((msg) =>
-            msg._id === editingMessageId ? data.messageData : msg
-          )
-        );
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg._id === editingMessageId ? data.messageData : msg
+        )
+      );
 
-        setMessage("");
-        setEditMode(false);
-        setEditingMessageId(null);
-      } catch (err) {
-        console.error("❌ Помилка оновлення:", err.message);
-        alert("Не вдалося оновити повідомлення");
-      }
+      setMessage("");
+      setEditMode(false);
+      setEditingMessageId(null);
 
       return;
     }
@@ -194,7 +182,6 @@ export default function MessagesPanel({
       onChatDelete(chat._id);
       setIsDeleting(false);
     } catch (err) {
-      console.error(err);
       alert("Не вдалося видалити чат");
       setIsDeleting(false);
     }
@@ -217,7 +204,7 @@ export default function MessagesPanel({
           <div className={styles["search-input-container"]}>
             <input
               type="text"
-              placeholder="Пошук повідомлень..."
+              placeholder="Find a message..."
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
               className={styles["search-input"]}
