@@ -60,8 +60,7 @@ export default function ChatsPage() {
       if (
         !isCurrentChat &&
         !notifications.some((n) => n._id === message._id) &&
-        message.sender._id &&
-        currentUser._id
+        message.sender._id !== currentUser._id
       ) {
         setNotifications((prev) => [...prev, message]);
       }
