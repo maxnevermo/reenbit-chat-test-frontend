@@ -189,6 +189,15 @@ export default function MessagesPanel({
     }
   };
 
+  useEffect(() => {
+    if (messageListRef.current) {
+      messageListRef.current.scrollTo({
+        top: messageListRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [messages]);
+
   return (
     <div className={styles["messages-panel-container"]}>
       <MessagesHeader
