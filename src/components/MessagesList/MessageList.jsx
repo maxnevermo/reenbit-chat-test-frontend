@@ -15,6 +15,8 @@ const MessageList = forwardRef(
     },
     ref
   ) => {
+    ref.current.scrollTo({ top: ref.current.scrollHeight, behavior: "smooth" });
+
     return (
       <ul className={styles["messages-list"]} ref={ref}>
         {chat.messagesHistory.map((message) => {
