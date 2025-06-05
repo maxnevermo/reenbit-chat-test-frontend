@@ -1,7 +1,5 @@
 # 💬 Chatly
 
-**Chatly** — це сучасний веб-додаток для обміну повідомленнями, який дозволяє створювати чати, редагувати повідомлення, шукати по історії та швидко спілкуватися через зручний інтерфейс.
-
 ![Netlify](https://img.shields.io/badge/Frontend-Netlify-brightgreen)
 ![Render](https://img.shields.io/badge/Backend-Render-blue)
 ![MongoDB](https://img.shields.io/badge/Database-MongoDB-green)
