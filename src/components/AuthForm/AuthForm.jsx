@@ -71,9 +71,9 @@ export default function AuthForm() {
     window.location.href = import.meta.env.VITE_API_URL + "/api/auth/google";
   };
 
-  const handleFacebookLogin = () => {
-    window.location.href = import.meta.env.VITE_API_URL + "/api/auth/facebook";
-  };
+  // const handleFacebookLogin = () => {
+  //   window.location.href = import.meta.env.VITE_API_URL + "/api/auth/facebook";
+  // };
 
   return (
     <div className={styles["auth-container"]}>
@@ -144,9 +144,9 @@ export default function AuthForm() {
         <button title="Login via Google" onClick={handleGoogleLogin}>
           <ReactSVG src={GoogleIcon} />
         </button>
-        <button title="Login via Facebook" onClick={handleFacebookLogin}>
+        {/* <button title="Login via Facebook" onClick={handleFacebookLogin}>
           <ReactSVG src={FacebookIcon} />
-        </button>
+        </button> */}
       </div>
     </div>
   );
